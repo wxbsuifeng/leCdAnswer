@@ -1,0 +1,96 @@
+var Trie = function() {
+    this.dictory = {
+        hasInsert: false,
+        child: {}
+    }
+
+    for(let i = 0; i < 26; i++) {
+        this.dictory.child[i] = {
+            hasBeenEnd: false,
+            child: void 0
+        }
+    }
+};
+
+Trie.prototype.insert = function(word) {
+    if(!word) {
+        return null;
+    }
+
+    if(!this.hasInsert) this.hasInsert = true;
+
+    let tempObj = this.dictory;
+    for(let i = 0; i < word.length; i++) {
+        let key = word[i].charCodeAt() - 97;
+        if(!tempObj.child[key]) {
+            tempObj.child[key] = {
+                hasBeenEnd: false,
+                child: void 0
+            }
+        }
+
+        if(i === word.length - 1) {
+            tempObj.child[key].hasBeenEnd = true;
+        }
+
+        if(!tempObj.child[key].child) {
+            tempObj.child[key].child = {}
+            for(let j = 0; j < 26; j++) {
+                tempObj.child[key].child[j] = {
+                    hasBeenEnd: false,
+                    child: void 0
+                }
+            }
+        }
+        
+        
+        tempObj = tempObj.child[key];
+    }
+};
+
+Trie.prototype.search = function(word) {
+    if(!word || !this.hasInsert) {
+        return false;
+    }
+
+    let tempObj = this.dictory;
+    for(let i = 0; i < word.length; i++) {
+        let key = word[i].charCodeAt() - 97;
+        if(!tempObj.child[key].child) {
+            return false;
+        }
+
+        if(i === word.length - 1 && tempObj.child[key].hasBeenEnd) {
+            return true
+        }  
+        tempObj = tempObj.child[key];
+    }
+
+    return false;
+};
+
+
+Trie.prototype.startsWith = function(prefix) {
+    if(!prefix || !this.hasInsert) {
+        return false;
+    }
+
+    let tempObj = this.dictory;
+    for(let i = 0; i < prefix.length; i++) {
+        let key = prefix[i].charCodeAt() - 97;
+        if(!tempObj.child[key].child) {
+            return false;
+        }
+        tempObj = tempObj.child[key];
+
+        if(i === prefix.length-1) {
+            return true;
+        }
+    }
+
+    return true;
+};
+
+思路： 每个节点的child包含26个节点 及 该节点是否作为结尾
+注意点：startWith 和 search 的长度判断
+
