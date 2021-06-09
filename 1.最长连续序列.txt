@@ -1,0 +1,34 @@
+var longestConsecutive = function(nums) {
+    if(!nums || nums.length === 0) {
+        return 0;
+    }
+
+    let numObj = {}, max = 1, resource = new Set(nums);
+
+    for(let item of resource) {
+        if(numObj[item]) {
+            continue;
+        }
+
+        numObj[item] = true;
+        let len = 1, tempItem = item;
+
+        while(resource.has(++tempItem)) {
+            numObj[tempItem] = true;
+            len++;
+        }
+
+        while(resource.has(--item)) {
+            numObj[item] = true;
+            len++;
+        }
+        
+        if(len > max) {
+            max = len;
+        }
+    }
+
+    return max;
+};
+
+思路： 最长连续序列（不要求连续），先找右边界是否存在，每次遍历的元素若在原数组中存在则在保存值的对象中 辅助（标记已遍历），然后遍历左侧可能存在的元素，记录长度。
