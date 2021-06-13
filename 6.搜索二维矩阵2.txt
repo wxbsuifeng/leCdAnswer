@@ -1,0 +1,25 @@
+var searchMatrix = function(matrix, target) {
+    if(typeof target !== 'number') {
+        return false;
+    }
+
+    if(target < matrix[0][0]) {
+        return false;
+    }
+
+    let row = 0, col = matrix[0].length - 1;
+    while(row < matrix.length && col >= 0) {
+        if(matrix[row][col] < target) {
+            row++;
+        }else if(matrix[row][col] > target) {
+            col--;
+        }else {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+
+思路： 双指针（下标）搜索，从最角落开始比较，比目标元素大 往左移， 比目标元素小往下移
