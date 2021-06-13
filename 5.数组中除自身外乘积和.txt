@@ -1,0 +1,21 @@
+var productExceptSelf = function(nums) {
+    let lfCount = [], rgCount = [], res = [], len = nums.length;
+
+    lfCount.push(1);
+    for(let i = 1; i < len; i++) {
+        lfCount[i] = lfCount[i-1] * nums[i-1];
+    }
+
+    rgCount[len-1] = 1;
+    for(let i = len - 2; i >= 0; i--) {
+        rgCount[i] = rgCount[i+1] * nums[i+1];
+    }
+
+    for(let i = 0; i <len; i++) {
+        res[i] = lfCount[i] * rgCount[i];
+    }
+
+    return res;
+};
+
+思路： 左右乘积和， 一个数组保存每个元素左边乘积和， 一个数组保存每个元素右边乘积和， 该元素除自身外乘积和为左乘积和 乘以 右乘积和
