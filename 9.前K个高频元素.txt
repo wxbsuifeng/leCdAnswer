@@ -1,0 +1,36 @@
+var topKFrequent = function(nums, k) {
+    let num2CountMap = {}, count2NumMap = {}, res = [];
+
+    for(let i = 0; i < nums.length; i++) {
+        if(num2CountMap[nums[i]]) {
+            num2CountMap[nums[i]]++;
+        }else {
+            num2CountMap[nums[i]] = 1;
+        }
+    }
+
+    let keys = Object.keys(num2CountMap);
+    for(let i of keys) {
+        let count = num2CountMap[i]
+        if(count2NumMap[count]) {
+            count2NumMap[count].push(i)
+        }else {
+            count2NumMap[count] = [i];
+        }
+    }
+
+    for(let i = nums.length; i > 0; i--) {
+        if(count2NumMap[i]) {
+            res.push(...count2NumMap[i])
+        }
+
+        if(res.length === k) {
+            break;
+        }
+    }
+
+    return res;
+};
+
+
+思路： 前遍历一遍元素 用一个对象把频率统计一下，然后用一个对象频次对应的数字 压入数组， 最后从最大n次出发 把有值的频次对应的数组元素 压入返回结果里面。
