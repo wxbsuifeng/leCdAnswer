@@ -1,0 +1,25 @@
+var rob = function(root) {
+    function helper(node) {
+        if(!node) {
+            return {
+                unselected: 0,
+                selected: 0
+            }
+        }
+
+        let lmObj = helper(node.left);
+        let rgObj = helper(node.right);
+
+        let res = {
+            selected: node.val + lmObj.unselected + rgObj.unselected,
+            unselected: Math.max(lmObj.unselected, lmObj.selected) + Math.max(rgObj.unselected, rgObj.selected)
+        }
+
+        return res;
+    }
+
+    let max = helper(root);
+    console.log(max)
+
+    return max.selected > max.unselected ? max.selected : max.unselected;
+};
