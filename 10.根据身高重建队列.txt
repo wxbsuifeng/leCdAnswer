@@ -1,0 +1,14 @@
+var reconstructQueue = function(people) {
+    people.sort((a, b) => a[0] === b[0] ? a[1] - b[1] : b[0] - a[0]);
+    
+    let res = [];
+    for(let i = 0; i < people.length; i++) {
+        let idx = people[i][1];
+        res.splice(idx, 0, people[i])
+    }
+
+    return res;
+};
+
+思路：两个维度问题先确定一个维度， 按照身高降序排列数组，身高相同按照 前面有几个人升序排列， 后续根据 前面有几个人将该元素插入对应位置。
+原因： 身高从高到低， 低的后续 插入高的前面时， 不影响高的 前面有几个人比他高的数量。
