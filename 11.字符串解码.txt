@@ -1,0 +1,22 @@
+var decodeString = function(s) {
+    let countStack = [], strStack = [], res = '', repeatCount = '';
+
+    for(let i = 0; i < s.length; i++) {
+        if(s[i].charCodeAt() >= 48 && s[i].charCodeAt() <= 57) {
+            repeatCount += s[i];
+        }else if(s[i] === '[') {
+            countStack.push(+repeatCount);
+            strStack.push(res)
+            repeatCount = '', res = '';
+        }else if(s[i] === ']') {
+            let number = countStack.pop(), reStr = strStack.pop();
+            res = reStr + res.repeat(number);
+        }else {
+            res += s[i];
+        }
+    }
+
+    return res;
+};
+
+思路： 借用栈结构 暂存内容， 每次碰到 [ 后将要重复的倍数 以及 [ 之前的字符串暂存， 碰到 ] 后取出倍数， 当前res字符串为需要重复的， 乘以倍数 再与原 保存字符串相加。
