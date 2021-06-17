@@ -1,0 +1,35 @@
+var pathSum = function(root, targetSum) {
+    let preSumMap = {}, res = 0;
+
+    function dfs(node, curSum) {
+        if(!node) {
+            return;
+        }
+
+        let tempSum = curSum + node.val;
+
+        let targetIdx = tempSum - targetSum;
+        if(targetIdx === 0) {
+            res++;
+        }
+        if(preSumMap[targetIdx] && preSumMap[targetIdx] > 0) {
+            res += preSumMap[targetIdx]
+        }
+
+        if(preSumMap[tempSum]) {
+            preSumMap[tempSum]++;
+        }else {
+            preSumMap[tempSum] = 1;
+        }
+
+        dfs(node.left, tempSum);
+        dfs(node.right, tempSum);
+        preSumMap[tempSum]--;
+    }
+    dfs(root, 0);
+
+    return res;
+};
+
+思路： 利用前缀和 判断当前元素前缀和减掉target的值 是否在前缀和里面， 在就说明当前元素与某个前缀和的 路径差值为 target值， 说明有路径存在。
+注意点：当前元素等于target， res结果直接+1；
