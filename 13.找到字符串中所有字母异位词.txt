@@ -1,0 +1,32 @@
+var findAnagrams = function(s, p) {
+    if(p.length > s.length) {
+        return [];
+    }
+    let targetMap = {}, curMap = {}, len = p.length, res = [];
+
+    for(let i = 0; i < len; i++) {
+        targetMap[p[i]] ? targetMap[p[i]]++ : targetMap[p[i]] = 1;
+    }
+
+    for(let i = 0; i < len - 1; i++) {
+        curMap[s[i]] ? curMap[s[i]]++ : curMap[s[i]] = 1;
+    }
+
+    for(let i = 0; i < s.length - len + 1; i++) {
+        curMap[s[i + len - 1]] ? curMap[s[i + len - 1]]++ : curMap[s[i + len - 1]] = 1;
+
+        let keys = Object.keys(targetMap), flag = true;
+        for(let key of keys) {
+            if(!curMap[key] || targetMap[key] !== curMap[key]) {
+                flag = false;
+            }
+        }
+        flag && res.push(i);
+
+        curMap[s[i]]--;
+    }
+
+    return res;
+};
+
+思路： 滑动窗口， 窗口长度为目标异位子串长度， 初始化一个map——用对象存储 存储当前目标长度子串的各个字符的个数， 每滑动一个数据 更新map里面的字符串个数并进行判断。
