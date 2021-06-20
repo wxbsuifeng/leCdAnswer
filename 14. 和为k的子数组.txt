@@ -1,0 +1,17 @@
+var subarraySum = function(nums, k) {
+    let sumMap = {'0': 1}, len = nums.length, curSum = 0, res = 0;
+
+    for(let i = 0; i < len; i++) {
+        curSum += nums[i];
+
+        if(sumMap[curSum - k]) {
+            res += sumMap[curSum - k];
+        }
+        sumMap[curSum] ? sumMap[curSum]++ : sumMap[curSum] =  1;
+    }
+    
+    return res;
+};
+
+思路：前缀和保存之前路径的和， 当前前缀和与k值 相差的值存在， 则有路径从该位置到当前位置， 和为K;
+注意点：前缀和可能有重复的路径，值加起来。
