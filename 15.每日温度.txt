@@ -1,0 +1,30 @@
+var dailyTemperatures = function(temperatures) {
+    if(!temperatures || temperatures.length === 0) {
+        return [];
+    }
+    let arr = [], res = []; len = temperatures.length;
+    for(let i = 0; i < len; i++) {
+        res[i] = 0;
+    }
+
+    arr.push({
+        idx: 0,
+        val: temperatures[0]
+    });
+    for(let i = 1; i < len; i++) {
+        while(arr.length > 0 && temperatures[i] > arr[arr.length - 1].val) {
+            let tempNode = arr.pop();
+            res[tempNode.idx] = i - tempNode.idx;
+        }
+        
+        arr.push({
+            idx: i,
+            val: temperatures[i]
+        })
+    }
+
+    return res;
+};
+
+
+思路： 用一个递减栈保存温度， 每当有比最后一项大的时候，pop并与将pop得到的元素的位置与 i 相减得到pop元素对应的答案。
