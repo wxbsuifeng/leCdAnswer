@@ -1,0 +1,23 @@
+var cuttingRope = function(n) {
+    let res = 1, maxObj = {
+        '2': 1,
+        '3': 2,
+        '4': 4
+    };
+
+    if(n <= 4) {
+        return maxObj[n];
+    }
+
+    while(n >= 5) {
+        res *= 3;
+        n -= 3;
+    }
+
+    res *= n;
+
+    return res;
+};
+
+思路： 数学推论：大于4 时， 必会分成一堆2 和 3
+          动态规划：从2遍历到 k ( n/2 + 1 )，每次判断  res[k-2] * 2 与 res[k-3]  * 3 与 k 里面最大值。
