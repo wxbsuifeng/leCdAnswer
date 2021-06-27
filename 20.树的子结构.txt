@@ -1,0 +1,24 @@
+var isSubStructure = function(A, B) {
+   if(!A || !B) {
+      return false;
+   }
+   return isSameTree(A,B) || isSubStructure(A.left,B)|| isSubStructure(A.right,B)
+};
+var isSameTree=function(a,b){
+  if(!b){
+      // 一直找到子树b为空都没有发现a.val !== b.val的情况，那么就确定确实存在这颗子树了
+      return true
+  }
+  if(!a){
+      return false
+  }
+  // 当前节点的值不相等，不 ok
+  if(a.val !== b.val) {
+      return false;
+  }
+  // 递归考察左子树、右子树
+  // 这里找到整颗的
+  return isSameTree(a.left, b.left) && isSameTree(a.right, b.right);
+}
+
+思路： 对节点进行先序遍历， 注意节点判断条件。
