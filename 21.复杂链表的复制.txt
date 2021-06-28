@@ -1,0 +1,46 @@
+var copyRandomList = function(head) {
+    if(!head) return null;
+    let mapObj = new Map(), res = {
+        val: head.val,
+        next: null,
+        random: null
+    }, tempNode = head, idx = 0;
+
+    let tempRes = res;
+    while(tempNode) {
+        if(idx !== 0) {
+            tempRes.next = {
+                val: tempNode.val,
+                next: null,
+                random: null
+            }
+
+            tempRes = tempRes.next;
+        }
+
+        mapObj.set(tempNode, {
+            index: idx,
+            randomIdx: -1,
+            newNode: tempRes
+        }) 
+
+        tempNode = tempNode.next;
+        idx++;
+    }
+    tempNode = head;
+
+    while(tempNode) {
+        if(tempNode.random) {
+            mapObj.get(tempNode).newNode.random = mapObj.get(tempNode.random).newNode;
+        }
+
+        tempNode = tempNode.next;
+    }
+
+    return res;
+};
+
+
+思路： 用一个map存下该节点对应的 新节点（next、randow、newNode）赋值为null，
+          第一次遍历将map填满并将next更新，
+          第二次遍历将该node的newNode.randow 指向  该node对应的random的 newNode。
