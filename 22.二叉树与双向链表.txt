@@ -1,0 +1,22 @@
+var treeToDoublyList = function(root) {
+    if(!root) return null;
+    let pre, head;
+
+    function dfs(node) {
+        if(!node) return;
+        dfs(node.left);
+        if(pre) pre.right = node;
+        else head = node;
+        node.left = pre;
+        pre = node;
+        dfs(node.right);
+    }
+    dfs(root);
+
+    head.left = pre;
+    pre.right = head;
+    return head;
+};
+
+
+思路：中序遍历，用pre保存左侧节点，第一次赋值给pre的为head， 最后的pre为尾节点
