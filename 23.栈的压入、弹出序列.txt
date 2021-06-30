@@ -1,0 +1,24 @@
+var validateStackSequences = function(pushed, popped) {
+    if(!pushed || pushed.length < 3) return true;
+
+    let res = true, supArr = [];
+
+    for(let num of popped) {
+        let idx = supArr.indexOf(num);
+        while(idx < 0) {
+            supArr.push(pushed.shift());
+            idx = supArr.indexOf(num);
+        }
+
+        if(idx !== supArr.length - 1) {
+            res = false;
+            break;
+        }
+
+        supArr.pop();
+    }
+
+    return res;
+};
+
+思路： 模仿入栈、出栈的过程，需要弹出的元素 判断是否是入栈数组的最后一个， 不是则不能弹出返回false
