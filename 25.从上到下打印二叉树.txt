@@ -1,0 +1,24 @@
+var levelOrder = function(root) {
+    if(!root) return [];
+
+    let supArr = [root], res = [];
+    while(supArr.length > 0) {
+        let tempArr = [];
+        for(let i = 0; i < supArr.length; i++) {
+            if(supArr[i].left) {
+                tempArr.push(supArr[i].left);
+            }
+            if(supArr[i].right) {
+                tempArr.push(supArr[i].right);
+            }
+
+            res.push(supArr[i].val);
+        }
+
+        supArr = tempArr;
+    }
+
+    return res;
+};
+
+思路： 借助数组广度优先遍历 二叉树
