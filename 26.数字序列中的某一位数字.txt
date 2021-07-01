@@ -1,0 +1,25 @@
+const dp = [0, 10]
+for(let i = 2; i <= 30; i++) {
+    dp[i] = dp[i-1] + (Math.pow(10, i) - Math.pow(10, i - 1)) * i;
+}
+
+var findNthDigit = function(n) {
+    let targetIdx = 0, res = -1; //dp = [0, 10], 
+    if(n < 10) {
+        return n;
+    }
+
+    for(targetIdx = 1; targetIdx < 30; targetIdx++) {
+        if(dp[targetIdx] > n) {
+            break;
+        }
+    }
+
+    let begin = Math.pow(10, targetIdx - 1), count = n - dp[targetIdx - 1];
+    let interval = count / targetIdx, rest = count % targetIdx;
+    res = (begin + interval + '')[rest];
+
+    return +res;
+};
+
+思路：动态规划，找出数字位数与序列之间的关系， 序列的长度等于  Math.pow(10, i) - Math.pow(10, i - 1) 乘以 i （当前位数）再加上dp[i - 1]。
