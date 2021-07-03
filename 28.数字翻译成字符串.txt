@@ -1,0 +1,21 @@
+var translateNum = function(num) {
+    if (num == 0) return 1;
+    let str = num + '';
+    const length = str.length;
+    let dp = [1];
+
+    for(let i = 1; i < length; i++){
+        let temp =+(str[i-1] + str[i]);
+        if (10 <= temp && temp <= 25){
+            if (i > 1)
+                dp[i] = dp[i-1] + dp[i-2];
+            else 
+                dp[i] = 1 + dp[i-1];
+        }else {
+            dp[i] = dp[i-1];
+        }
+    }
+    return dp.pop();
+};
+
+思路： 动态规划， 若前面一个字符串在0-25之间 则 dp[i] = dp[i-1] +dp[i-2] 否则 dp[i] = dp[i-1]
