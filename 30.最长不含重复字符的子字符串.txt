@@ -1,0 +1,20 @@
+var lengthOfLongestSubstring = function(s) {
+    if(s.length < 2) return s.length;
+    let supObj = {}, begin = 0, res = 0;
+
+    for(let i = 0; i < s.length; i++) {
+        let idx = supObj[s[i]];
+        supObj[s[i]] = i;
+        if(typeof idx === 'number' && idx >= begin) {
+            begin = idx + 1;
+        }else {
+            if(i - begin + 1 > res) {
+                res = i - begin + 1;
+            }
+        }
+    }
+
+    return res;
+};
+
+思路： 双指针 + hash表 记录滑动窗口的位置
