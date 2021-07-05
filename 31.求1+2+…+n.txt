@@ -1,0 +1,15 @@
+求 1+2+...+n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+
+var sumNums = function(n) {
+    function helper(number) {
+        number | 0  && (number += helper(number-1));
+        return number;
+    }
+
+    let res = 0;
+    res += helper(n);
+
+    return res;
+};
+
+思路： 使用按位或进行判断是否为0，若可使用 > 浩，也可直接 n > 0 && helper(number - 1)
