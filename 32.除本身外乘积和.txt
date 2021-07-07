@@ -1,0 +1,16 @@
+var constructArr = function(a) {
+    let dpLe = [1], dpRg = [], len = a.length;
+    dpRg[len-1] = 1;
+
+    for(let i = 0; i < len; i++) {
+        i > 0 && (dpLe[i] = dpLe[i-1] * a[i-1],
+        dpRg[len-i-1] = dpRg[len - i] * a[len - i]);
+    }
+
+    for(let i = 0; i < len; i++) {
+        dpRg[i] *= dpLe[i]
+    }
+    return dpRg;
+};
+
+思路： 双向构建dp数组，顺序构建左侧乘积和数组，逆序构建右侧乘积和数组， 结果两边相乘。
