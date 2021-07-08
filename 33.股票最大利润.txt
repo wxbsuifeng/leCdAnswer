@@ -1,0 +1,15 @@
+var maxProfit = function(prices) {
+    if(!prices || prices.length === 0) return [];
+
+    let dp = 0, preMin = prices[0];
+    for(let i = 1; i < prices.length; i++) {
+        if(prices[i] > preMin) {
+            dp = Math.max(dp, prices[i] - preMin);
+        }else {
+            preMin = prices[i];
+        }
+    }
+    return dp;
+};
+
+思路（动态规划）： 当前天最大利润为昨天最大利润（已出售）与今天价格减掉之前最低价格之间的最大值，由于dp只需要前一天状态，故用变量代替dp数组。
