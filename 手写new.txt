@@ -1,0 +1,11 @@
+function _new(fn, ...rest) {
+    let thisObj = Object.create(fn.prototype)
+    let result = fn.apply(thisObj, rest);
+    return typeof result === 'Object' ? result : thisObj;
+}
+
+function Person(name, sex) {
+    this.name = name;
+    this.sex = sex;
+}
+let person1 = _new(Person, 'xiaoming', 'male');
