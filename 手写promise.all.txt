@@ -1,0 +1,25 @@
+function _myProimseALl(lists) {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    let iteratorIdx = 0, resolveIdx = 0;
+
+    for(const item of lists) {
+      iteratorIdx++;
+
+      Promise.resolve(item).then(res => {
+        results.push(res);
+        resolveIdx++;
+
+        if(iteratorIdx === resolveIdx) {
+          resolve(results);
+        }
+      }).catch(err => {
+        reject(err);
+      })
+    }
+
+    if(iteratorIdx===0){
+      resolve(promiseResults)
+    }
+  });
+}
