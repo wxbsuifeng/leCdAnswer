@@ -1,0 +1,15 @@
+var canCompleteCircuit = function(gas, cost) {
+    let curSum = 0, start = 0, totalSum = 0;
+
+    for(let i = 0; i < cost.length; i++) {
+        curSum += gas[i] - cost[i], totalSum += gas[i] - cost[i];
+        if(curSum < 0) {
+            start = i+1;
+            curSum = 0;
+        }
+    }
+
+    return start >= gas.length || totalSum < 0  ? -1 : start;
+};
+
+思路：贪心思想， 从左到右遍历，若油耗和大于油量和，起始点后移至该点之后，遍历结束若总消耗大于总和 或 start超出数组范围则返回-1。
