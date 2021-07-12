@@ -1,0 +1,15 @@
+var hIndex = function(citations) {
+    let n = citations.length;
+    let left = 0, right = n - 1;
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (citations[mid] >= n - mid) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return n - left;
+};
+
+思路： 二分查找， 中间数大于右侧节点数，则往右找，否则往左。
