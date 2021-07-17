@@ -1,0 +1,25 @@
+var recoverTree = function(root) {
+    let arr = [], errNode1 = void 0, errNode2 = void 0;
+    
+    function helper(node) {
+        if(!node) return;
+
+        helper(node.left);
+        arr.push(node);
+        helper(node.right)
+    }
+    helper(root)
+
+    for(let i = 0; i < arr.length - 1; i++) {
+        console.log(arr[i].val, arr[i+1].val)
+        if(arr[i].val > arr[i+1].val) {
+            !errNode1 ? (errNode1 = arr[i], errNode2 = arr[i+1]) : errNode2 = arr[i+1];
+        }
+    }
+
+    let tempVal = errNode1.val;
+    errNode1.val = errNode2.val;
+    errNode2.val = tempVal;
+};
+
+思路：中序输出数组，然后判断交换哪两个就能变成升序
