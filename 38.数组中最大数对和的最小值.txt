@@ -1,0 +1,14 @@
+var minPairSum = function(nums) {
+    nums.sort((a, b) => a-b);
+
+    let res = 0;
+    for(let i = 0; i < nums.length/2; i++) {
+        if(nums[i] + nums[nums.length-1-i] > res) {
+            res = nums[i] + nums[nums.length-i-1];
+        }
+    }
+
+    return res;
+};
+
+思路： 排序加遍历， 贪心思想
