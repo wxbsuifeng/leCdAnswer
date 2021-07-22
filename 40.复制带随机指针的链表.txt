@@ -1,0 +1,25 @@
+var copyRandomList = function(head) {
+    const nodeMap = new Map();
+
+    let tempNode = head;
+    while(tempNode) {
+        nodeMap.set(tempNode, {
+            val: tempNode.val,
+            next: null,
+            random: null
+        });
+        tempNode = tempNode.next;
+    }
+
+    tempNode = head;
+    while(tempNode) {
+        const tempNew = nodeMap.get(tempNode);
+        tempNode.next && (tempNew.next = nodeMap.get(tempNode.next));
+        tempNode.random && (tempNew.random = nodeMap.get(tempNode.random));
+        tempNode= tempNode.next;
+    }
+
+    return nodeMap.get(head);
+};
+
+思路： 第一次遍历用map存 key为旧节点 value为新节点的数据，第二次遍历用过取到旧节点对应的新节点 来赋值指针 
